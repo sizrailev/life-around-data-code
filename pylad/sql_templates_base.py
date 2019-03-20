@@ -21,12 +21,16 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #===============================================================================
+# Source: https://github.com/sizrailev/life-around-data-code/blob/master/pylad/
+#===============================================================================
 
 '''
 Helper functions for parameterizing SQL queries in Python using JinjaSql
 '''
 
 from copy import deepcopy
+
+from six import string_types
 
 from jinjasql import JinjaSql
 
@@ -39,7 +43,7 @@ def quote_sql_string(value):
     If `value` is a string type, escapes single quotes in the string
     and returns the string enclosed in single quotes.
     '''
-    if isinstance(value, (bytes, bytearray, str, unicode)):
+    if isinstance(value, string_types):
         new_value = str(value)
         new_value = new_value.replace("'", "''")
         return "'{}'".format(new_value)
@@ -54,7 +58,7 @@ def get_sql_from_template(query, bind_params):
     if not bind_params:
         return query
     params = deepcopy(bind_params)
-    for key, val in params.iteritems():
+    for key, val in params.items():
         params[key] = quote_sql_string(val)
     return query % params
 

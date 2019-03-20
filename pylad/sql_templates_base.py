@@ -52,7 +52,7 @@ def quote_sql_string(value):
 
 def get_sql_from_template(query, bind_params):
     '''
-    Given a query and binding parameters produved by JinjaSql's prepare_query(),
+    Given a query and binding parameters produced by JinjaSql's prepare_query(),
     produce and return a complete SQL query string.
     '''
     if not bind_params:

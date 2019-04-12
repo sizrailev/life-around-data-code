@@ -98,10 +98,9 @@ def get_column_stats_sql(table_name, column_name, default_value):
     Passing None for the default_value results in zero output for the number
     of default values.
     '''
-    # Note that a string default needs to be quoted first.
     params = {
         'table_name': table_name,
         'column_name': column_name,
-        'default_value': quote_sql_string(default_value),
+        'default_value': default_value,
     }
     return apply_sql_template(COLUMN_STATS_TEMPLATE, params)

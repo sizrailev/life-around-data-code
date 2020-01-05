@@ -1,7 +1,7 @@
 #===============================================================================
 # MIT License
 #
-# Copyright (c) 2019 Sergei Izrailev
+# Copyright (c) 2019-2020 Sergei Izrailev
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -63,12 +63,15 @@ def get_sql_from_template(query, bind_params):
     return query % params
 
 
-def apply_sql_template(template, parameters):
+def apply_sql_template(template, parameters, func_list = None):
     '''
     Apply a JinjaSql template (string) substituting parameters (dict) and return
-    the final SQL.
+    the final SQL. Use the func_list to pass any functions called from the template.
     '''
     j = JinjaSql(param_style='pyformat')
+    if func_list:
+        for func in func_list:
+            j.env.globals[func.__name__] = func
     query, bind_params = j.prepare_query(template, parameters)
     return get_sql_from_template(query, bind_params)
 

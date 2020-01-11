@@ -63,7 +63,7 @@ def get_sql_from_template(query, bind_params):
     return query % params
 
 
-def apply_sql_template(template, parameters, func_list = None):
+def apply_sql_template(template, parameters, func_list=None):
     '''
     Apply a JinjaSql template (string) substituting parameters (dict) and return
     the final SQL. Use the func_list to pass any functions called from the template.

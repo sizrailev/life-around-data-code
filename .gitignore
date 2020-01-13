@@ -109,4 +109,5 @@ venv.bak/
 *.pyc
 
 .idea
+.DS_Store
 
